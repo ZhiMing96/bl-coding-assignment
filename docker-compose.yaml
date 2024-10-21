@@ -1,0 +1,47 @@
+version: '3.7'
+services:
+  postgres:
+    image: postgres:14-alpine
+    hostname: localhost
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_USER=root
+      - POSTGRES_DB=test
+  localstack:
+    hostname: localstack
+    image: localstack/localstack:0.13.0
+    expose:
+      - '61160'
+    ports:
+      - '61160:61160'
+    environment:
+      - HOSTNAME_EXTERNAL=localhost
+      - EDGE_PORT=61160
+      - DEFAULT_REGION=ap-southeast-1
+      - SERVICES=s3
+      - START_WEB=0
+    volumes:
+      - './.ls_tmp:/tmp/localstack'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+
+  localstackSetup:
+    image: localstack/localstack:0.13.0
+    depends_on:
+      - localstack
+    environment:
+      # these are fake keys needed to create the local queues
+      - AWS_ACCESS_KEY_ID=fake-access-key-id
+      - AWS_SECRET_ACCESS_KEY=fake-aws-secret-access-key
+    restart: 'no'
+    entrypoint:
+      [
+        '/bin/bash',
+        '-c',
+        'chmod +x /scripts/setupLocalstack.sh && /scripts/setupLocalstack.sh',
+      ]
+    volumes:
+      - ./scripts:/scripts
