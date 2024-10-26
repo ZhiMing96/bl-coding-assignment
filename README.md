@@ -41,6 +41,9 @@ $ docker compose up
 
 ## Compile and run the project
 
+### Postman 
+- Import postman collection from /postman folder and play around with the API
+
 ```bash
 # development
 $ npm run start
@@ -51,6 +54,7 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+
 
 ## Run tests
 
