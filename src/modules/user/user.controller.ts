@@ -19,7 +19,10 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  public async createUser(@Body() req: CreateUserReqDto): Promise<User | null> {
-    return this.userService.createUser(req);
+  public async createUser(
+    @Body() req: CreateUserReqDto,
+  ): Promise<{ id: number } | null> {
+    const newUser = await this.userService.createUser(req);
+    return { id: newUser.id };
   }
 }

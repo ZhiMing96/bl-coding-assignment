@@ -37,6 +37,9 @@ export class Post {
   })
   comments?: Comment[];
 
+  @Column({ default: 0 })
+  commentCount: number;
+
   @Index()
   @CreateDateColumn({
     type: 'timestamptz',
