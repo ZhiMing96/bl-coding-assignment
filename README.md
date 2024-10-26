@@ -25,6 +25,9 @@ Functional requirements:
 - Posts should be sorted by the number of comments (desc)
 - Retrieve posts via a cursor-based pagination
 
+## Architecture (MVP)
+![Screenshot 2024-10-26 at 5 34 01 PM](https://github.com/user-attachments/assets/1b0f1277-c335-4300-a7fd-329d2073e2dd)
+
 ## Project setup
 
 Ensure you have node v18 installed on your OS.
